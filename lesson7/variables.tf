@@ -40,3 +40,15 @@ variable "argocd_chart_version" {
   default     = "v7.7.5"
 }
 
+variable "app_repo_url" {
+  description = "Git repo URL"
+  type        = string
+  default     = "https://github.com/vasiliy-sharko/mlops-course-argocd.git"
+}
+
+variable "app_repo_branch" {
+  description = "Branch to use"
+  type        = string
+  default     = "main"
+}
+
