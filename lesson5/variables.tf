@@ -8,3 +8,9 @@ variable "bucket_name" {
   type        = string
   default     = "mlops-tfstate-vsharko"
 }
+
+variable "cluster_name" {
+  type        = string
+  default     = "budget-eks"
+  description = "Name of the EKS cluster"
+}

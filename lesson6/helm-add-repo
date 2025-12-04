@@ -1,0 +1,7 @@
+helm add bitnami https://charts.bitnami.com/bitnami
+help repo update
+---
+helm search repo ...
+helm pull bitnami/nginx --version 15.4.1
+---
+helm create <name>
