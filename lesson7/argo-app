@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: <app-name>
+  namespace: <argocd-namespace>   # де встановлено ArgoCD (напр., infra-tools)
+spec:
+  project: default
+  source:
+    repoURL: <helm-repo-url>      # з ArtifactHub або GitHub Helm repo
+    chart: <chart-name>           # назва чарту
+    targetRevision: <chart-version>
+    helm:
+      # ОБЕРІТЬ ОДИН СПОСІБ:
+      # values: |                 # ← вставити ваші overrides тут (Варіант A)
+      #   ...
+      # valueFiles:               # ← або посилання на файл у вашому Git (Варіант B)
+      #   - values/<file>.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: <target-namespace> # куди деплоїти застосунок
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+

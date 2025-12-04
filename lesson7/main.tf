@@ -18,47 +18,47 @@ resource "helm_release" "argo" {
   values = [file("${path.module}/values/argocd-values.yaml")]
 }
 
-#resource "kubernetes_manifest" "namespaces_appset" {
-#  manifest = {
-#    apiVersion = "argoproj.io/v1alpha1"
-#    kind       = "ApplicationSet"
-#    metadata = {
-#      name      = "namespaces-appset"
-#      namespace = var.argocd_namespace
-#    }
-#    spec = {
-#      generators = [{
-#        git = {
-#          repoURL     = var.app_repo_url
-#          revision    = var.app_repo_branch
-#          directories = [{ path = "namespace/*" }]
-#        }
-#      }]
-#      template = {
-#        metadata = {
-#          name      = "ns-{{path.basename}}"
-#          namespace = var.argocd_namespace
-#        }
-#        spec = {
-#          project = "default"
-#          source = {
-#            repoURL        = var.app_repo_url
-#            targetRevision = var.app_repo_branch
-#            path           = "{{path}}"
-#            directory = { recurse = true }
-#          }
-#          destination = {
-#            server    = "https://kubernetes.default.svc"
-#            namespace = "{{path.basename}}"
-#          }
-#          syncPolicy = {
-#            automated   = { prune = true, selfHeal = true }
-#            syncOptions = []
-#          }
-#          revisionHistoryLimit = 2
-#        }
-#      }
-#    }
-#  }
-#  depends_on = [helm_release.argo]
-#}
+resource "kubernetes_manifest" "namespaces_appset" {
+  manifest = {
+    apiVersion = "argoproj.io/v1alpha1"
+    kind       = "ApplicationSet"
+    metadata = {
+      name      = "namespaces-appset"
+      namespace = var.argocd_namespace
+    }
+    spec = {
+      generators = [{
+        git = {
+          repoURL     = var.app_repo_url
+          revision    = var.app_repo_branch
+          directories = [{ path = "namespace/*" }]
+        }
+      }]
+      template = {
+        metadata = {
+          name      = "ns-{{path.basename}}"
+          namespace = var.argocd_namespace
+        }
+        spec = {
+          project = "default"
+          source = {
+            repoURL        = var.app_repo_url
+            targetRevision = var.app_repo_branch
+            path           = "{{path}}"
+            directory = { recurse = true }
+          }
+          destination = {
+            server    = "https://kubernetes.default.svc"
+            namespace = "{{path.basename}}"
+          }
+          syncPolicy = {
+            automated   = { prune = true, selfHeal = true }
+            syncOptions = []
+          }
+          revisionHistoryLimit = 2
+        }
+      }
+    }
+  }
+  depends_on = [helm_release.argo]
+}

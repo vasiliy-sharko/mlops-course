@@ -18,6 +18,6 @@ server:
 redis:
   enabled: true
     
-    #applicationSet:
-    #  enabled: true
+applicationSet:
+  enabled: true
 
