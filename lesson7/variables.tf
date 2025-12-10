@@ -37,7 +37,7 @@ variable "argocd_namespace" {
 variable "argocd_chart_version" {
   description = "Версія Helm-чарту Argo CD"
   type        = string
-  default     = "v7.7.5"
+  default     = "v9.1.7"
 }
 
 variable "app_repo_url" {
