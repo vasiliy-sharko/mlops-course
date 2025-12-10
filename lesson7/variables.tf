@@ -52,3 +52,7 @@ variable "app_repo_branch" {
   default     = "main"
 }
 
+variable "app_repo_path" {
+  type    = string
+  default = "argocd-apps"
+}
